@@ -1,5 +1,5 @@
 #! /bin/sh
-
+ 
 ### BEGIN INIT INFO
 # Provides:          nginx
 # Required-Start:    $all
@@ -9,31 +9,31 @@
 # Short-Description: starts the nginx web server
 # Description:       starts nginx using start-stop-daemon
 ### END INIT INFO
-
-PATH=/usr/local/nginx/sbin:/opt/bin:/opt/sbin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+ 
+PATH=/usr/local/nginx:/usr/local/nginx/sbin:/usr/local/nginx/conf:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DAEMON=/usr/local/nginx/sbin/nginx
 NAME=nginx
 DESC=nginx
 
 test -x $DAEMON || exit 0
-
+ 
 # Include nginx defaults if available
 if [ -f /etc/default/nginx ] ; then
         . /etc/default/nginx
 fi
-
+ 
 set -e
-
+ 
 case "$1" in
   start)
         echo -n "Starting $DESC: "
-        start-stop-daemon --start --quiet --pidfile /var/run/nginx.pid \
+        start-stop-daemon --start --quiet --pidfile /usr/local/nginx/logs/nginx.pid \
                 --exec $DAEMON -- $DAEMON_OPTS
         echo "$NAME."
         ;;
   stop)
         echo -n "Stopping $DESC: "
-        start-stop-daemon --stop --quiet --pidfile /var/run/nginx.pid \
+        start-stop-daemon --stop --quiet --pidfile /usr/local/nginx/logs/nginx.pid \
                 --exec $DAEMON
         echo "$NAME."
         ;;
@@ -48,7 +48,7 @@ case "$1" in
         ;;
   reload)
       echo -n "Reloading $DESC configuration: "
-      start-stop-daemon --stop --signal HUP --quiet --pidfile /var/run/nginx.pid \
+      start-stop-daemon --stop --signal HUP --quiet --pidfile /usr/local/nginx/logs/nginx.pid \
           --exec $DAEMON
       echo "$NAME."
       ;;
@@ -58,5 +58,5 @@ case "$1" in
         exit 1
         ;;
 esac
-
+ 
 exit 0
