@@ -8,7 +8,7 @@
 Clone the repository and enter the directory:
 ```
 cd
-git clone https://github.com/cthach/nginx-reverse
+git clone https://github.com/cthach/nginx-reverse-proxy.git
 cd nginx-reverse-proxy
 ```
 
