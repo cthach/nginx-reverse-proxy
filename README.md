@@ -12,7 +12,7 @@ git clone https://github.com/cthach/nginx-reverse-proxy.git
 cd nginx-reverse-proxy
 ```
 
-For HTTPS, install an openssl dependency (optional):
+**HTTPS only**, install an openssl dependency (optional):
 ```
 sudo apt install libssl-dev
 ```
@@ -33,12 +33,12 @@ Backup default config and copy over optimized config:
 sudo mv /usr/local/nginx/conf/nginx.conf /usr/local/nginx/conf/nginx.conf.bak
 ```
 
-For HTTP only
+**HTTP only**
 ```
 sudo cp ./conf/nginx_http.conf /usr/local/nginx/conf/nginx.conf
 ```
 
-For HTTPS only
+**HTTPS only**
 ```
 sudo cp ./conf/nginx_https.conf /usr/local/nginx/conf/nginx.conf
 ```
@@ -47,6 +47,17 @@ Copy init.d script to control NGINX:
 ```
 sudo cp ./init.d/nginx /etc/init.d/nginx
 ```
+
+**HTTPS only**: Generate Diffie-Hellman parameters
+```
+sudo mkdir /usr/local/nginx/ssl
+sudo chmod 755 /usr/local/nginx/ssl
+openssl dhparam 2048 -out /usr/local/nginx/ssl/dh2048.pem
+sudo chmod -R 755 /usr/local/nginx/ssl
+```
+
+**HTTPS only**: Get an SSL certificate
+- Let's Encrypt offers [free SSL certificates](https://letsencrypt.org/)
 
 Configure your NGINX config
 ```
